@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "truce"
+version = "0.1.0"
+description = "TRUCE: Type Reconciliation under Conflicting Evidence for Document-level Relation Extraction（类型与文本证据冲突下的文档级关系抽取实验框架）"
+requires-python = ">=3.9"
+dependencies = ["torch>=2.8", "transformers>=4.57.6", "numpy>=2.0.2", "PyYAML>=6.0.3", "safetensors>=0.4", "opt_einsum>=3.3", "matplotlib>=3.9", "tensorboard>=2.20"]
+
+[project.scripts]
+truce = "truce.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["truce*"]

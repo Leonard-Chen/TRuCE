@@ -1,0 +1,29 @@
+extends: base.yaml
+data:
+  train: data/toy/train.json
+  dev: data/toy/dev.json
+  test: data/toy/test.json
+  max_length: 32
+  overlap: 8
+model:
+  encoder_backend: tiny
+  encoder_name: offline-tiny
+  hidden_size: 32
+  tiny_hidden_size: 32
+  tiny_vocab_size: 4096
+  dropout: 0.0
+  gradient_checkpointing: false
+teacher:
+  cache_dir: artifacts/toy_teachers
+  epochs: 8
+  hidden: 16
+training:
+  epochs: 2
+  learning_rate: 0.003
+  head_learning_rate: 0.003
+  accumulation_steps: 2
+  amp: false
+  input_strategy: mixed
+  max_steps: 8
+evaluation:
+  noise_seeds: [101]

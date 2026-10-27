@@ -1,0 +1,4 @@
+# 仅文本与图底座
+extends: base.yaml
+model:
+  variant: B0

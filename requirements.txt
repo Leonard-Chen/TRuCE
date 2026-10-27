@@ -1,0 +1,9 @@
+# 注：GPU 版 torch 请按 README 单独安装
+torch>=2.8.0
+transformers>=4.57.6
+numpy>=2.0.2
+PyYAML>=6.0.3
+safetensors>=0.4
+opt_einsum>=3.3
+matplotlib>=3.9
+tensorboard>=2.20

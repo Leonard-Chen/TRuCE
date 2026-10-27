@@ -1,0 +1,500 @@
+[
+  {
+    "title": "toy_test_00",
+    "sents": [
+      [
+        "Alice",
+        "joined",
+        "Acme",
+        "in",
+        "Paris",
+        "during",
+        "2020",
+        "."
+      ],
+      [
+        "Acme",
+        "reported",
+        "42",
+        "employees",
+        "for",
+        "ProjectX",
+        "."
+      ],
+      [
+        "The",
+        "company",
+        "develops",
+        "software",
+        "and",
+        "works",
+        "with",
+        "local",
+        "organizations",
+        "."
+      ],
+      [
+        "Alice",
+        "continues",
+        "to",
+        "lead",
+        "ProjectX",
+        "from",
+        "Paris",
+        "."
+      ]
+    ],
+    "vertexSet": [
+      [
+        {
+          "name": "Alice",
+          "type": "PER",
+          "sent_id": 0,
+          "pos": [
+            0,
+            1
+          ]
+        },
+        {
+          "name": "Alice",
+          "type": "PER",
+          "sent_id": 3,
+          "pos": [
+            0,
+            1
+          ]
+        }
+      ],
+      [
+        {
+          "name": "Acme",
+          "type": "ORG",
+          "sent_id": 0,
+          "pos": [
+            2,
+            3
+          ]
+        },
+        {
+          "name": "Acme",
+          "type": "MISC",
+          "sent_id": 1,
+          "pos": [
+            0,
+            1
+          ]
+        }
+      ],
+      [
+        {
+          "name": "Paris",
+          "type": "LOC",
+          "sent_id": 0,
+          "pos": [
+            4,
+            5
+          ]
+        },
+        {
+          "name": "Paris",
+          "type": "LOC",
+          "sent_id": 3,
+          "pos": [
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "name": "42",
+          "type": "NUM",
+          "sent_id": 1,
+          "pos": [
+            2,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "name": "2020",
+          "type": "TIME",
+          "sent_id": 0,
+          "pos": [
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "name": "ProjectX",
+          "type": "MISC",
+          "sent_id": 1,
+          "pos": [
+            5,
+            6
+          ]
+        },
+        {
+          "name": "ProjectX",
+          "type": "MISC",
+          "sent_id": 3,
+          "pos": [
+            4,
+            5
+          ]
+        }
+      ]
+    ],
+    "labels": [
+      {
+        "h": 0,
+        "t": 1,
+        "r": "P108",
+        "evidence": [
+          0
+        ]
+      },
+      {
+        "h": 1,
+        "t": 2,
+        "r": "P159",
+        "evidence": []
+      }
+    ]
+  },
+  {
+    "title": "toy_test_01",
+    "sents": [
+      [
+        "Bob",
+        "joined",
+        "Acme",
+        "in",
+        "Paris",
+        "during",
+        "2020",
+        "."
+      ],
+      [
+        "Acme",
+        "reported",
+        "42",
+        "employees",
+        "for",
+        "ProjectX",
+        "."
+      ],
+      [
+        "The",
+        "company",
+        "develops",
+        "software",
+        "and",
+        "works",
+        "with",
+        "local",
+        "organizations",
+        "."
+      ],
+      [
+        "Bob",
+        "continues",
+        "to",
+        "lead",
+        "ProjectX",
+        "from",
+        "Paris",
+        "."
+      ]
+    ],
+    "vertexSet": [
+      [
+        {
+          "name": "Bob",
+          "type": "PER",
+          "sent_id": 0,
+          "pos": [
+            0,
+            1
+          ]
+        },
+        {
+          "name": "Bob",
+          "type": "PER",
+          "sent_id": 3,
+          "pos": [
+            0,
+            1
+          ]
+        }
+      ],
+      [
+        {
+          "name": "Acme",
+          "type": "ORG",
+          "sent_id": 0,
+          "pos": [
+            2,
+            3
+          ]
+        },
+        {
+          "name": "Acme",
+          "type": "ORG",
+          "sent_id": 1,
+          "pos": [
+            0,
+            1
+          ]
+        }
+      ],
+      [
+        {
+          "name": "Paris",
+          "type": "LOC",
+          "sent_id": 0,
+          "pos": [
+            4,
+            5
+          ]
+        },
+        {
+          "name": "Paris",
+          "type": "LOC",
+          "sent_id": 3,
+          "pos": [
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "name": "42",
+          "type": "NUM",
+          "sent_id": 1,
+          "pos": [
+            2,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "name": "2020",
+          "type": "TIME",
+          "sent_id": 0,
+          "pos": [
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "name": "ProjectX",
+          "type": "MISC",
+          "sent_id": 1,
+          "pos": [
+            5,
+            6
+          ]
+        },
+        {
+          "name": "ProjectX",
+          "type": "MISC",
+          "sent_id": 3,
+          "pos": [
+            4,
+            5
+          ]
+        }
+      ]
+    ],
+    "labels": [
+      {
+        "h": 0,
+        "t": 1,
+        "r": "P108",
+        "evidence": [
+          0
+        ]
+      },
+      {
+        "h": 1,
+        "t": 2,
+        "r": "P159",
+        "evidence": []
+      }
+    ]
+  },
+  {
+    "title": "toy_test_02",
+    "sents": [
+      [
+        "Alice",
+        "joined",
+        "Acme",
+        "in",
+        "Paris",
+        "during",
+        "2020",
+        "."
+      ],
+      [
+        "Acme",
+        "reported",
+        "42",
+        "employees",
+        "for",
+        "ProjectX",
+        "."
+      ],
+      [
+        "The",
+        "company",
+        "develops",
+        "software",
+        "and",
+        "works",
+        "with",
+        "local",
+        "organizations",
+        "."
+      ],
+      [
+        "Alice",
+        "continues",
+        "to",
+        "lead",
+        "ProjectX",
+        "from",
+        "Paris",
+        "."
+      ]
+    ],
+    "vertexSet": [
+      [
+        {
+          "name": "Alice",
+          "type": "PER",
+          "sent_id": 0,
+          "pos": [
+            0,
+            1
+          ]
+        },
+        {
+          "name": "Alice",
+          "type": "PER",
+          "sent_id": 3,
+          "pos": [
+            0,
+            1
+          ]
+        }
+      ],
+      [
+        {
+          "name": "Acme",
+          "type": "ORG",
+          "sent_id": 0,
+          "pos": [
+            2,
+            3
+          ]
+        },
+        {
+          "name": "Acme",
+          "type": "ORG",
+          "sent_id": 1,
+          "pos": [
+            0,
+            1
+          ]
+        }
+      ],
+      [
+        {
+          "name": "Paris",
+          "type": "LOC",
+          "sent_id": 0,
+          "pos": [
+            4,
+            5
+          ]
+        },
+        {
+          "name": "Paris",
+          "type": "LOC",
+          "sent_id": 3,
+          "pos": [
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "name": "42",
+          "type": "NUM",
+          "sent_id": 1,
+          "pos": [
+            2,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "name": "2020",
+          "type": "TIME",
+          "sent_id": 0,
+          "pos": [
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "name": "ProjectX",
+          "type": "MISC",
+          "sent_id": 1,
+          "pos": [
+            5,
+            6
+          ]
+        },
+        {
+          "name": "ProjectX",
+          "type": "MISC",
+          "sent_id": 3,
+          "pos": [
+            4,
+            5
+          ]
+        }
+      ]
+    ],
+    "labels": [
+      {
+        "h": 0,
+        "t": 1,
+        "r": "P108",
+        "evidence": [
+          0
+        ]
+      },
+      {
+        "h": 1,
+        "t": 2,
+        "r": "P159",
+        "evidence": []
+      }
+    ]
+  }
+]

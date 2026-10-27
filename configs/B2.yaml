@@ -1,0 +1,4 @@
+# 类型 dropout 对照
+extends: base.yaml
+model:
+  variant: B2

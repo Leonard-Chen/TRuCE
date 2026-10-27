@@ -1,0 +1,4 @@
+# 直接使用观测类型
+extends: base.yaml
+model:
+  variant: B1

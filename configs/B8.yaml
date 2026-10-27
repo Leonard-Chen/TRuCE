@@ -1,0 +1,4 @@
+# 软类型纠正与传播前门控
+extends: base.yaml
+model:
+  variant: B8

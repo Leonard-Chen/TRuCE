@@ -1,0 +1,21 @@
+extends: base.yaml
+model:
+  variant: E1
+training:
+  amp: false
+etmier:
+  source_dir: external/ET-MIER
+  source_commit: c0650a930b065709e1c18d93400486b4be03832c
+  max_seq_length: 1022
+  block_size: 64
+  num_labels: 4
+  max_sent_num: 64
+  top_k: 1
+  three_atten: false
+  tser_logsumexp: true
+  enhance_evidence: false
+  s_attn_lambda: 0.01
+  relation_loss_lambda: 2.0
+  type_loss_weight: 0.25
+  evidence_loss_weight: 0.1
+  evidence_threshold: 0.2

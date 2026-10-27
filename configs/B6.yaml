@@ -1,0 +1,4 @@
+# 仅软类型纠正
+extends: base.yaml
+model:
+  variant: B6

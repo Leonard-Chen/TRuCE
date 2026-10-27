@@ -1,0 +1,4 @@
+# 传播后门控
+extends: base.yaml
+model:
+  variant: B5

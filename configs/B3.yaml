@@ -1,0 +1,4 @@
+# 固定类型残差权重
+extends: base.yaml
+model:
+  variant: B3

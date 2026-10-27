@@ -1,0 +1,20 @@
+extends: smoke.yaml
+model:
+  variant: E1
+etmier:
+  source_dir: external/ET-MIER
+  source_commit: c0650a930b065709e1c18d93400486b4be03832c
+  max_seq_length: 1022
+  block_size: 8
+  num_labels: 2
+  max_sent_num: 64
+  top_k: 1
+  tser_logsumexp: true
+  relation_loss_lambda: 0.1
+  type_loss_weight: 0.25
+  evidence_loss_weight: 0.1
+training:
+  epochs: 1
+  max_steps: 2
+  limit_train: 4
+  limit_dev: 2

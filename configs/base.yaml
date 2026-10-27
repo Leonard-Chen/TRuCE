@@ -1,0 +1,58 @@
+data:
+  train: data/raw/train_revised.json
+  dev: data/raw/dev_revised.json
+  test: data/raw/test_revised.json
+  max_length: 512
+  overlap: 128
+model:
+  encoder_backend: hf
+  encoder_name: bert-base-uncased
+  encoder_revision: 86b5e0934494bd15c9632b12f734a8a67f723594
+  local_files_only: false
+  hidden_size: 128
+  graph_layers: 2
+  dropout: 0.1
+  variant: B0
+  type_weight: 0.5
+  type_dropout: 0.2
+  gradient_checkpointing: true
+teacher:
+  cache_dir: artifacts/teachers
+  seed: 17
+  folds: 2
+  epochs: 30
+  hidden: 64
+  lr: 0.01
+  inner_calibration_fraction: 0.2
+training:
+  seed: 17
+  epochs: 10
+  learning_rate: 0.00002
+  head_learning_rate: 0.001
+  weight_decay: 0.01
+  accumulation_steps: 4
+  max_grad_norm: 1.0
+  amp: true
+  input_strategy: mixed
+  max_steps: null
+  limit_train: null
+  limit_dev: null
+  threads: 2
+  save_every_steps: 100
+  log_every_steps: 1
+  scheduler: constant
+  warmup_steps: 0
+logging:
+  tensorboard: true
+  flush_seconds: 10
+loss:
+  relation: 1.0
+  evidence: 1.0
+  type: 0.1
+evaluation:
+  threshold: 0.5
+  noise_seeds: [101, 202, 303]
+  rates: [0.1, 0.2, 0.4]
+  selection_noise_seed: 101
+output:
+  directory: runs

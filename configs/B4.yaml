@@ -1,0 +1,4 @@
+# 仅使用全文预测类型
+extends: base.yaml
+model:
+  variant: B4
