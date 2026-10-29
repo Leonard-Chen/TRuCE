@@ -97,33 +97,33 @@ smoke 中每个配置的目录包含上述训练文件，另有 `test_<condition
 
 ### 1. 环境自检
 
-```powershell
+```bash
 python -m truce doctor
 python -m truce smoke --output runs/first_smoke
 ```
 
 同时验证 E1：
 
-```powershell
+```bash
 python -m truce smoke --include-etmier --output runs/all_smoke
 ```
 
 >注意，E1 需要固定版本的 ET-MIER 源码：
 >
->```powershell
+>```bash
 >git clone --config core.autocrlf=false https://github.com/xin-fight/ET-MIER.git external/ET-MIER
 >git -C external/ET-MIER checkout --detach c0650a930b065709e1c18d93400486b4be03832c
 >```
 
 继续已有训练：
 
-```powershell
+```bash
 python -m truce train --resume "runs/B8_seed17"
 ```
 
 ### 2. 准备
 
-```powershell
+```bash
 python scripts/download_data.py --output-dir data/raw
 python -m truce audit --config configs/B0.yaml --output artifacts/data_audit.json
 python scripts/prepare_teachers.py --config configs/B0.yaml --output artifacts/teachers
@@ -131,7 +131,7 @@ python scripts/prepare_teachers.py --config configs/B0.yaml --output artifacts/t
 
 ### 3. 训练
 
-```powershell
+```bash
 python -m truce train --config configs/B0.yaml --output runs/B0_seed17
 python -m truce train --config configs/B1.yaml --output runs/B1_seed17
 python -m truce train --config configs/B8.yaml --output runs/B8_seed17
@@ -139,7 +139,7 @@ python -m truce train --config configs/B8.yaml --output runs/B8_seed17
 
 小样本接口验证：
 
-```powershell
+```bash
 python -m truce train --config configs/B1.yaml --output runs/B1_pilot --set training.limit_train=32 --set training.limit_dev=16 --set training.max_steps=10 --set training.epochs=2
 ```
 
@@ -160,25 +160,25 @@ python -m truce train --config configs/B1.yaml --output runs/B1_pilot --set trai
 
 实验计划：
 
-```powershell
+```bash
 python -m truce matrix --config configs/B0.yaml --output runs/main_plan
 ```
 
 执行（使用与计划预览不同的新目录）：
 
-```powershell
+```bash
 python -m truce matrix --config configs/B0.yaml --output runs/main_runs --execute
 ```
 
 小范围执行（可选）：
 
-```powershell
+```bash
 python -m truce matrix --config configs/B0.yaml --output runs/pilot_runs --variants B0 B1 B3 B8 --seeds 17 --execute
 ```
 
 不带 `--execute` 只会生成计划；已包含 `matrix.json` 的目录不能再次用于生成或执行矩阵。批量训练不会自动运行 `sweep`，模型保存在 `runs/main_runs/<配方>_seed<种子>/` 下面；下文的独立训练目录与其不同，评估时需使用实际路径。例如批量训练完成后：
 
-```powershell
+```bash
 python -m truce sweep --checkpoint runs/main_runs/B8_seed17 --split dev --output runs/main_runs/B8_seed17/dev_sweep
 ```
 
@@ -186,7 +186,7 @@ python -m truce sweep --checkpoint runs/main_runs/B8_seed17 --split dev --output
 
 E1：
 
-```powershell
+```bash
 python -m truce train --config configs/E1.yaml --output runs/E1_seed17
 python -m truce sweep --checkpoint runs/E1_seed17 --output runs/E1_seed17/noise_sweep
 python -m truce diagnose --checkpoint runs/E1_seed17 --output runs/E1_seed17/diagnostics.json
@@ -202,7 +202,7 @@ python -m truce diagnose --checkpoint runs/E1_seed17 --output runs/E1_seed17/dia
 | C3   | confusion | 按类型器常见的混淆规律改错         |
 | C4   | local     | 使用局部类型器实际预测的类型，产生自然错误 |
 
-```powershell
+```bash
 python -m truce intervene --config configs/B8.yaml --split test --condition confusion --rate 0.2 --noise-seed 101 --output artifacts/test_C3_20_seed101.json
 python -m truce evaluate --checkpoint runs/B1_seed17 --condition confusion --rate 0.2 --noise-seed 101 --output runs/B1_seed17/test_C3_20.json
 python -m truce evaluate --checkpoint runs/B8_seed17 --condition confusion --rate 0.2 --noise-seed 101 --output runs/B8_seed17/test_C3_20.json
@@ -212,7 +212,7 @@ python -m truce diagnose --checkpoint runs/B8_seed17 --output runs/B8_seed17/dia
 
 配对 bootstrap：
 
-```powershell
+```bash
 python -m truce bootstrap --config configs/B8.yaml --a runs/B1_seed17/test_C3_20.json --b runs/B8_seed17/test_C3_20.json --output runs/bootstrap_B8_minus_B1.json
 ```
 
@@ -220,7 +220,7 @@ python -m truce bootstrap --config configs/B8.yaml --a runs/B1_seed17/test_C3_20
 
 屏蔽部分文本证据，检查模型是否依赖它们。
 
-```powershell
+```bash
 python -m truce evidence --checkpoint runs/B8_seed17 --split dev --source predicted --limit 100 --output runs/B8_seed17/evidence_predicted.json
 python -m truce evidence --checkpoint runs/B8_seed17 --split dev --source reference --limit 100 --output runs/B8_seed17/evidence_reference.json
 ```
