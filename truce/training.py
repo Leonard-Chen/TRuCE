@@ -47,18 +47,6 @@ def restore_rng(state, device=None):
             torch.cuda.set_rng_state(state['active_cuda'], device)
 
 
-def _cpu_tree(value):
-    if isinstance(value, torch.Tensor):
-        return value.detach().cpu()
-    if isinstance(value, dict):
-        return {key: _cpu_tree(item) for key, item in value.items()}
-    if isinstance(value, tuple):
-        return tuple(_cpu_tree(item) for item in value)
-    if isinstance(value, list):
-        return [_cpu_tree(item) for item in value]
-    return value
-
-
 def atomic_torch_save(value, destination):
     destination = Path(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -233,6 +221,8 @@ def _run_training(model, optimizer, documents, config, run_dir, metadata,
         optimizer.load_state_dict(saved_state['optimizer'])
         scheduler.load_state_dict(saved_state['scheduler'])
         scaler.load_state_dict(saved_state['scaler'])
+        # 状态已载入，及时释放读取断点时的 CPU 权重副本。
+        del saved_state['model'], saved_state['optimizer']
         epoch, position = saved_state['epoch'], saved_state['batch_position']
         step, attempts = saved_state['global_step'], saved_state['optimizer_attempts']
         order = saved_state['epoch_order']
@@ -257,8 +247,9 @@ def _run_training(model, optimizer, documents, config, run_dir, metadata,
     def save_progress():
         logger.flush()
         state = {
-            'format_version': 1, 'model': _cpu_tree(model.state_dict()),
-            'optimizer': _cpu_tree(optimizer.state_dict()), 'scheduler': scheduler.state_dict(),
+            # 同步保存由 torch.save 逐个 storage 搬到 CPU，避免整个模型状态的额外常驻副本。
+            'format_version': 1, 'model': model.state_dict(),
+            'optimizer': optimizer.state_dict(), 'scheduler': scheduler.state_dict(),
             'scaler': scaler.state_dict(), 'amp_enabled': amp, 'rng': capture_rng(device),
             'logging': logger.state_dict(),
             'epoch': epoch, 'batch_position': position, 'epoch_order': order,
@@ -303,6 +294,7 @@ def _run_training(model, optimizer, documents, config, run_dir, metadata,
                         scaler.scale(loss).backward()
                         group_losses.append({key: float(value.detach()) for key, value in losses.items()})
                         epoch_observations.append(observation)
+                        del losses, loss
 
                     scaler.unscale_(optimizer)
                     torch.nn.utils.clip_grad_norm_(model.parameters(), settings.get('max_grad_norm', 1.0),
@@ -354,6 +346,7 @@ def _run_training(model, optimizer, documents, config, run_dir, metadata,
                 if score > best_score:
                     best_score = score
                     _save_best(model, run_dir / 'best', metadata, epoch, step, score, clean, noisy, checkpoint_extra)
+                del clean, noisy
                 epoch += 1
                 position, order, epoch_losses, epoch_observations = 0, None, [], []
                 save_progress()

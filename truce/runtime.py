@@ -7,6 +7,7 @@ import platform
 import random
 import re
 import subprocess
+import sys
 from pathlib import Path, PureWindowsPath
 
 import numpy as np
@@ -26,7 +27,9 @@ def write_json(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + '.tmp')
-    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8')
+    # 逐块写入大型干预清单，避免同时保留完整 JSON 字符串及其编码副本。
+    with temporary.open('w', encoding='utf-8') as handle:
+        json.dump(value, handle, ensure_ascii=False, indent=2)
     temporary.replace(path)
 
 
@@ -239,7 +242,8 @@ def environment_info():
     except (OSError, subprocess.CalledProcessError):
         commit = None
     return {
-        'python': platform.python_version(), 'platform': platform.platform(),
+        'python': platform.python_version(), 'python_executable': sys.executable,
+        'platform': platform.platform(),
         'torch': torch.__version__, 'transformers': transformers.__version__,
         'numpy': np.__version__, 'cuda_available': torch.cuda.is_available(),
         'cuda_runtime': torch.version.cuda, 'git_commit': commit,

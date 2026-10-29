@@ -7,6 +7,8 @@ import json
 from collections import Counter
 from pathlib import Path
 
+import numpy as np
+
 
 TYPE_NAMES = ('PER', 'ORG', 'LOC', 'NUM', 'TIME', 'MISC')
 TYPE_TO_ID = {name: index for index, name in enumerate(TYPE_NAMES)}
@@ -148,8 +150,9 @@ def encode_document(doc, tokenizer, relation_vocab, max_length=512, overlap=128)
             break
         start += capacity - overlap
     pair_to_index = {pair: index for index, pair in enumerate(doc['pairs'])}
-    relation_targets = [[0.0] * len(relation_vocab) for _ in doc['pairs']]
-    evidence_targets = [[0.0] * len(doc['sents']) for _ in doc['pairs']]
+    # 全集预编码时用紧凑二值数组保存标签；送入模型时仍转换为 FP32。
+    relation_targets = np.zeros((len(doc['pairs']), len(relation_vocab)), dtype=np.uint8)
+    evidence_targets = np.zeros((len(doc['pairs']), len(doc['sents'])), dtype=np.uint8)
     evidence_mask = [False] * len(doc['pairs'])
     for label in doc['labels']:
         relation = str(label['r'])
